@@ -37,7 +37,7 @@ $("button").on("click", function() {
 
         var gifImage = $("<img>");
         gifImage.attr("src", results[i].images.fixed_height_still.url);
-        gifImage.attr("data-still", results[i].images.fixed_height_still);
+        gifImage.attr("data-still", results[i].images.fixed_height_still.url);
         gifImage.attr("data-animate", results[i].images.fixed_height.url);
         gifImage.attr("data-state", "still");
         gifImage.addClass("gif");
