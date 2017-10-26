@@ -13,18 +13,6 @@ function makeButtons() {
 }
 makeButtons();
 
-$(".gif").on("click", function() {
-  var state = $(this).attr("data-state");
-
-  if (state === "still") {
-    $(this).attr("src", $(this).attr("data-animate"));
-    $(this).attr("data-state", "animate");
-  } else {
-    $(this).attr("src", $(this).attr("data-still"));
-    $(this).attr("data-state", "still");
-  }
-});
-
 $("button").on("click", function() {
   var person = $(this).attr("data-person");
   var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
@@ -48,9 +36,10 @@ $("button").on("click", function() {
         var p = $("<p>").text("Rating: " + rating);
 
         var gifImage = $("<img>");
-        gifImage.attr("src", results[i].images.fixed_height.url);
-        gifImage.attr("data-still", results[i].images.fixed_height_still.url);
         gifImage.attr("src", results[i].images.fixed_height_still.url);
+        gifImage.attr("data-still", results[i].images.fixed_height_still);
+        gifImage.attr("data-animate", results[i].images.fixed_height.url);
+        gifImage.attr("data-state", "still");
         gifImage.addClass("gif");
 
         gifDiv.prepend(p);
@@ -58,5 +47,16 @@ $("button").on("click", function() {
 
         $("#gifs-appear-here").prepend(gifDiv);
       }
+      $(".gif").on("click", function() {
+        var state = $(this).attr("data-state");
+
+        if (state === "still") {
+          $(this).attr("src", $(this).attr("data-animate"));
+          $(this).attr("data-state", "animate");
+        } else {
+          $(this).attr("src", $(this).attr("data-still"));
+          $(this).attr("data-state", "still");
+        }
+      });
     });
 });
